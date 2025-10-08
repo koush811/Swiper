@@ -35,10 +35,10 @@ function optionend(){
 
 function showNumber1() {
     const val = document.getElementById("number1").value;
-    document.getElementById('output1').textContent = val;
-    if(val > 10){
+    document.getElementById('output1').textContent = val+"人";
+    if(val >= 10){
         document.getElementById('output1').style.backgroundColor = "rgba(222, 34, 1, 0.76)";
-    }else if(val > 5){
+    }else if(val >= 5){
         document.getElementById('output1').style.backgroundColor = "rgba(222, 134, 1, 0.76)";
     }else{
         document.getElementById('output1').style.backgroundColor = "rgba(126, 222, 1, 0.76)";
@@ -46,10 +46,10 @@ function showNumber1() {
 }
 function showNumber2() {
     const val = document.getElementById("number2").value;
-    document.getElementById('output2').textContent = val;
-    if(val > 10){
+    document.getElementById('output2').textContent = val+"人";
+    if(val >= 10){
         document.getElementById('output2').style.backgroundColor = "rgba(222, 34, 1, 0.76)";
-    }else if(val > 5){
+    }else if(val >= 5){
         document.getElementById('output2').style.backgroundColor = "rgba(222, 134, 1, 0.76)";
     }else{
         document.getElementById('output2').style.backgroundColor = "rgba(126, 222, 1, 0.76)";
