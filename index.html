@@ -12,8 +12,8 @@
     <button  onclick="options()" id="option">option</button>
 
     <div id="optionmenue" style="display: none;">
-        <input type="number" id="number1" name="content1">
-        <input type="number" id="number2" name="content2">
+        <div>スライムの待ち人数：<input type="number" id="number1" name="content1"></div>
+        <div>バスボムの待ち人数：<input type="number" id="number2" name="content2"></div>
         <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">終了</button>
     </div>
 
@@ -53,10 +53,6 @@
     <!-- If we need navigation buttons -->
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
-
-    <!-- If we need scrollbar -->
-    <div class="swiper-scrollbar"></div>
-    </div>    
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
