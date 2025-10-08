@@ -4,7 +4,7 @@ const swiper = new Swiper('.swiper', {
   loop: true,
   speed: 500,
   autoplay: {
-    delay: 3000,
+    delay: 5000,
     disableOnInteraction: false,
   },
   // If we need pagination
@@ -27,3 +27,18 @@ const swiper = new Swiper('.swiper', {
   
 });
 
+function options(){
+  document.getElementById("optionmenue").style.display = "flex";
+}
+function optionend(){
+  document.getElementById("optionmenue").style.display = "none";
+}
+
+function showNumber1() {
+    const val = document.getElementById("number1").value;
+    document.getElementById('output1').textContent = val;
+}
+function showNumber2() {
+    const val = document.getElementById("number2").value;
+    document.getElementById('output2').textContent = val;
+}

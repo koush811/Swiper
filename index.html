@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button  onclick="options()" id="option">option</button>
+
+    <div id="optionmenue" style="display: none;">
+        <input type="number" id="number1" name="content1">
+        <input type="number" id="number2" name="content2">
+        <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">終了</button>
+    </div>
+
     <!-- Slider main container -->
     <div class="swiper">
     <!-- Additional required wrapper -->
@@ -16,19 +24,29 @@
         <!-- Slides -->
         <div class="swiper-slide">
             <h1 class="title">１年１組</h1>
-            <div class="setumei">あ</div>
+            <div class="setumei">スライムとバスボム作りをやっています</div>
             <img src="imgs/image.png" >
         </div>
         <div class="swiper-slide">
-            <h1 class="title">スライム</h1>
-            <div class="setumei">作り方</div>
+            <h1 class="title">スライム作り</h1>
+            <div class="setumei">
+                <div>＜詳細情報＞</div>
+                <div>待ち人数：<p id="output1"></p></div>
+                
+            </div>
+            
             <img src="imgs/97531813-science-laboratory-concept-background-microscope-and-laboratory-glassware-composition.jpg" >
         </div>
         <div class="swiper-slide">
-            <h1 class="title">バスボム</h1>
-            <div class="setumei">作り方</div>
+            <h1 class="title">バスボム作り</h1>
+            <div class="setumei">
+                <div>＜詳細情報＞</div>
+                <div>待ち人数：<p id="output2"></p></div>
+                
+            </div>
             <img src="imgs/reai_2567B000_TP_V.jpg" >
         </div>
+
     </div>
     
 
@@ -38,7 +56,7 @@
 
     <!-- If we need scrollbar -->
     <div class="swiper-scrollbar"></div>
-</div>    
+    </div>    
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
