@@ -55,3 +55,14 @@ function showNumber2() {
         document.getElementById('output2').style.backgroundColor = "rgba(126, 222, 1, 0.76)";
     }
 }
+showNumber1();
+showNumber2();
+
+function updateclock() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    document.getElementById("clock").textContent = timeString;
+}
+
+updateclock();
+setInterval(updateclock, 1000);

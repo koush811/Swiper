@@ -20,7 +20,7 @@ img{
 .title{
   position: absolute;
   padding: 20px;
-  top: 20%;
+  top: 10%;
   left: 50%;
   transform: translate(-50%,-50%);
   color: white;
@@ -31,8 +31,8 @@ img{
 
 .setumei{
   position: absolute;
-  padding: 20px 50px;
-  top: 50%;
+  padding: 20px 100px;
+  top: 60%;
   left: 50%;
   transform: translate(-50%,-50%);
   color: white;
@@ -43,7 +43,7 @@ img{
 #option{
   position: absolute;
   font-size: 1.5rem;
-  margin-top: 10px;
+  margin: 10px;
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
@@ -51,10 +51,14 @@ img{
   cursor: pointer;
   z-index: 10;
 }
+#option :hover{
+  background-color: rgba(99, 99, 99, 0.8);
+}
+
 #optionmenue{
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 60px;
+  left: 10px;
   flex-direction: column;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
@@ -70,7 +74,29 @@ img{
   cursor: pointer;
 }
 #output1, #output2{
-  margin: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 10px 10px;
   border-radius: 5px;
+}
+#clock{
+  margin: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+.tukurikata{
+  margin: 10px 0;
+  text-align: left;
+  display: flex;
+}
+
+.time{
+  margin: 30px 0;
 }

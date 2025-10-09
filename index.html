@@ -12,10 +12,11 @@
     <button  onclick="options()" id="option">option</button>
 
     <div id="optionmenue" style="display: none;">
-        <div>スライムの待ち人数：<input type="number" id="number1" name="content1"></div>
-        <div>バスボムの待ち人数：<input type="number" id="number2" name="content2"></div>
-        <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">終了</button>
+        <div>スライムの待ち人数：<input type="number" id="number1" name="content1" value="0"></div>
+        <div>バスボムの待ち人数：<input type="number" id="number2" name="content2" value="0"></div>
+        <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">更新</button>
     </div>
+    <div id="clock"></div>
 
     <!-- Slider main container -->
     <div class="swiper">
@@ -24,15 +25,24 @@
         <!-- Slides -->
         <div class="swiper-slide">
             <h1 class="title">１年１組</h1>
-            <div class="setumei">スライムとバスボム作りをやっています</div>
+            <div class="setumei">スライムとバスボム作りをやっています<br>受け付けはこちらから</div>
             <img src="imgs/image.png" >
         </div>
+        
+
         <div class="swiper-slide">
             <h1 class="title">スライム作り</h1>
             <div class="setumei">
                 <div>＜詳細情報＞</div>
                 <div>待ち人数：<p id="output1"></p></div>
-                
+                <div class="time">所要時間：○○分</div>
+                <div class="tukurikata">
+                    １：洗濯のりと水を混ぜる<br>
+                    ２：好きな色を入れて混ぜる<br>
+                    ３：ホウ砂水を少しずつ入れて混ぜる<br>
+                    ４：完成！
+                </div>
+                <div>完成例：<img src="" alt=""></div>
             </div>
             
             <img src="imgs/97531813-science-laboratory-concept-background-microscope-and-laboratory-glassware-composition.jpg" >
@@ -41,8 +51,16 @@
             <h1 class="title">バスボム作り</h1>
             <div class="setumei">
                 <div>＜詳細情報＞</div>
-                <div>待ち人数：<p id="output2"></p></div>
-                
+                <div class="time">待ち人数：<p id="output2"></p></div>
+                <div>所要時間：○○分</div>
+                <div  class="tukurikata">
+                    １：重曹とクエン酸を混ぜる<br>
+                    ２：水を少しずつ入れて混ぜる<br>
+                    ３：好きな色や香りを入れて混ぜる<br>
+                    ４：型に入れて固める<br>
+                    ５：完成！
+                </div>
+                <div>完成例：<img src="" alt=""></div>
             </div>
             <img src="imgs/reai_2567B000_TP_V.jpg" >
         </div>
