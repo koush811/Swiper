@@ -1,11 +1,11 @@
 const swiper = new Swiper('.swiper', {
-  // Optional parameters
-  //direction: 'vertical',
   loop: true,
   speed: 500,
+  effect: 'cube',
   autoplay: {
     delay: 5000,
     disableOnInteraction: false,
+    effect: 'cube',
   },
   // If we need pagination
   pagination: {
