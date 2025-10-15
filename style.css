@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   width: 90%;
-  height: 70vh;
+  height: 80vh;
 }
 .swiper-pagination{
   z-index: 10;
@@ -20,6 +20,16 @@
 img{
   width: 100%;
   height: 100%;
+}
+.haikei{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  object-fit: cover;
+ 
 }
 .maintitle{
   position: absolute;
@@ -30,7 +40,6 @@ img{
   color: white;
   font-size: 3rem;
   text-align: center;
-  background-color: rgba(129, 129, 130, 0.715);
 }
 .title{
   position: absolute;
@@ -41,7 +50,8 @@ img{
   color: white;
   font-size: 3rem;
   text-align: center;
-  background-color: rgba(129, 129, 130, 0.715);
+  z-index: 10;
+  
 }
 .mainsetumei{
   position: absolute;
@@ -63,7 +73,7 @@ img{
   color: white;
   font-size: 1.3em;
   text-align: center;
-  background-color: rgba(129, 129, 130, 0.715);
+  z-index: 10;
 }
 #option{
   position: absolute;

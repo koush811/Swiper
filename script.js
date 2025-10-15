@@ -1,11 +1,11 @@
 const swiper = new Swiper('.swiper', {
   loop: true,
   speed: 500,
-  effect: 'cube',
+  effect: 'fade',
   autoplay: {
     delay: 5000,
     disableOnInteraction: false,
-    effect: 'cube',
+    effect: 'fade',
   },
   // If we need pagination
   pagination: {
