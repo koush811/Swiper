@@ -61,7 +61,7 @@ showNumber2();
 function updateclock() {
     const now = new Date();
     const timeString = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    document.getElementById("clock").textContent = timeString;
+    document.getElementById("clock").textContent = "時刻：" + timeString;
 }
 
 updateclock();
