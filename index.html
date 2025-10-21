@@ -9,15 +9,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button  onclick="options()" id="option">option</button>
+    <header>
+        <button  onclick="options()" id="option">option</button>
 
-    <div id="optionmenue" style="display: none;">
-        <div>スライムの待ち人数：<input type="number" id="number1" name="content1" value="0"></div>
-        <div>バスボムの待ち人数：<input type="number" id="number2" name="content2" value="0"></div>
-        <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">更新</button>
-    </div>
-    <div id="clock"></div>
-
+        <div id="optionmenue" style="display: none;">
+            <div style="display:flex;gap:6px;margin-top:6px;">
+                <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">閉じる</button>
+            </div>  
+        </div>
+        <div id="clock"></div>
+    </header>
     <!-- Slider main container -->
     <div class="swiper">
     <!-- Additional required wrapper -->
@@ -27,40 +28,48 @@
             <div class="main-slide">
                 <h1 class="maintitle">１年１組<br>Chemical Lab</h1>
                 <div class="mainsetumei">スライムとバスボム作りをやっています<br>受け付けはこちらから</div>
-                <img src="imgs/image.png" >
             </div>
         </div>
-
         <div class="swiper-slide">
-            <div class="haikei">
+            <div class="slide-content-left">
                 <h1 class="title">スライム作り</h1>
-                <div class="setumei">
-                    <h2>＜詳細情報＞</h2>
-                    <div>待ち人数：<p id="output1"></p></div>
-                    <div class="time">所要時間：○○分</div>
-                    <div>完成例：<img src="imgs/WIN_20251009_16_05_45_Pro.jpg" alt=""></div>
-                </div>
-                <img src="imgs/97531813-science-laboratory-concept-background-microscope-and-laboratory-glassware-composition.jpg" >
-                
+                <div class="human">待ち人数：<p id="output1"></p></div>
+                <div class="time">所要時間：○○分</div>
+            </div>
+            <div class="slide-content-right">
+                <h2>完成例</h2>
+                <img src="imgs/WIN_20251009_16_05_45_Pro.jpg" alt="" />
             </div>
         </div>
         <div class="swiper-slide">
-            <div class="haikei">
+            <div class="slide-content-left">
                 <h1 class="title">バスボム作り</h1>
-                    <div class="setumei">
-                        <h2>＜詳細情報＞</h2>
-                        <div>待ち人数：<p id="output2"></p></div>
-                        <div class="time">所要時間：○○分</div>
-                        <div>完成例：<img src="imgs/WIN_20251008_16_31_19_Pro.jpg" alt=""></div>
-                    </div>
-                    <img src="imgs/reai_2567B000_TP_V.jpg" >
-                </div>
+                <div class="human">待ち人数：<p id="output2"></p></div>
+                <div class="time">所要時間：○○分</div>
+            </div>
+            <div class="slide-content-right">
+                <h2>完成例</h2>
+                <img src="imgs/WIN_20251008_16_31_19_Pro.jpg" alt="" />
             </div>
         </div>
-
+    </div>
     <!-- If we need navigation buttons -->
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
+</div>
+<div id="waitingPanel">
+    <div id="waitingCount">0人待ち</div>
+    <ul id="waitingList"></ul>
+</div>
+<div class="select">
+    <div>スライムかバスボムかどちらかを選んでください</div>
+    <div class="btn">
+        
+        <button id="select_s">スライム</button>
+        <button id="select_b">バスボム</button>
+    </div>
+</div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
