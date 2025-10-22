@@ -16,7 +16,7 @@ header{
   z-index: 15;
   position: fixed;
   padding: 0 20px;
-  background-color: yellow;
+  background-color: #9BEBF1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +25,7 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;  
-  padding: 10px 50px;
+  padding: 10px 100px;
   box-sizing: border-box;
   height: 100%;
 }
@@ -35,14 +35,14 @@ header{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1 1 50%;  
+  flex: 1 1 40%;  
   color: black;
   font-size: 130%;
 }
 
 .slide-content-right {
   margin-top: 50px;
-  flex: 1 1 50%; 
+  flex: 1 1 40%; 
   text-align: center;
 }
 
@@ -50,6 +50,7 @@ header{
   width: 80%;
   height: auto;
   border-radius: 8px;
+  margin: 10px;
 }
 
 .human{
@@ -73,7 +74,7 @@ body{
   height: 60vh;
   width: 100%;
   box-sizing: border-box;
-  background-color: lightgreen;
+  background-color: #DBF8FF;
 
 }
 
@@ -244,7 +245,7 @@ body{
 .btn button{
   margin: 10px;
   border: solid .5px black;
-  background-color: aquamarine;
+  background-color: #9BEBF1;
   padding: 10px;
   border-radius: 5px;
 }
@@ -252,3 +253,5 @@ body{
 .time{
   margin: 10px 0;
 }
+
+/*#DBF8FF、#77AED9、#9BEBF1*/

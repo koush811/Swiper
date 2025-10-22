@@ -165,5 +165,22 @@ function updateclock() {
     document.getElementById("clock").textContent = "時刻：" + timeString;
 }
 
+function reset() {
+  if (!confirm('待ち人数をすべてリセットしますか？')) return;
+
+  waitingState = { items: [], counters: { slime: 0, bathbomb: 0 } };
+
+  localStorage.removeItem(STATE_KEY);
+  renderWaiting();
+
+  alert('待ち人数をリセットしました。');
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  const btnReset = document.getElementById('resetbtn');
+  if (btnReset) btnReset.addEventListener('click', reset);
+});
+
+
 updateclock();
 setInterval(updateclock, 1000);
