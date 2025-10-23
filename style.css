@@ -25,36 +25,30 @@ header{
   display: flex;
   justify-content: space-between;
   align-items: center;  
-  padding: 10px 100px;
+  padding: 0px 100px;
   box-sizing: border-box;
   height: 100%;
 }
 
-.slide-content-left {
+.slide-content{
+  margin-top: 80px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1 1 40%;  
-  color: black;
-  font-size: 130%;
+  flex-direction: column;
 }
 
-.slide-content-right {
-  margin-top: 50px;
-  flex: 1 1 40%; 
-  text-align: center;
-}
-
-.slide-content-right img {
-  width: 80%;
+.slide-content img{
+  width: 50%;
   height: auto;
   border-radius: 8px;
-  margin: 10px;
+  margin-bottom: 0;
+  margin-top: 5px;
 }
 
 .human{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -97,7 +91,7 @@ body{
 .maintitle{
   position: absolute;
   padding: 30px;
-  top: 30%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%,-50%);
   color: black;
@@ -107,7 +101,7 @@ body{
 .title{
   position: absolute;
   padding: 10px;
-  top: 13%;
+  top: 15%;
   left: 50%;
   transform: translate(-50%,-50%);
   color: black;
@@ -119,7 +113,7 @@ body{
 .mainsetumei{
   position: absolute;
   padding: 30px 60px;
-  top: 60%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%,-50%);
   color: black;
@@ -172,9 +166,9 @@ body{
   cursor: pointer;
 }
 #output1, #output2{
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 20px;
-  padding: 10px 10px;
+  padding: 10px 100px;
   border-radius: 5px;
 }
 #clock{
@@ -210,6 +204,7 @@ body{
   justify-content: center;
   align-items: center;
 }
+
 #waitingPanel ul{
   list-style: none;
   padding-left: 6px;
@@ -218,40 +213,141 @@ body{
 #waitingPanel li{
   padding: 4px 6px;
   border-radius: 4px;
-  margin-bottom: 4px;
+  margin: 10px 40px;
   background: rgba(0,0,0,0.04);
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid .5px black;
 }
 
 .select{
   position: absolute;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 50%;
   height: 30vh;
   right: 10px;
   z-index: 1000000;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.btn{
-  
 }
 
 .btn button{
-  margin: 10px;
+  margin: 10px 30px;
   border: solid .5px black;
   background-color: #9BEBF1;
   padding: 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .time{
   margin: 10px 0;
 }
+
+.count{
+  display: flex;
+  gap: 10px;
+}
+
+.slime-item {
+  background-color: #9BEBF1;
+  color: #004d66;
+  border: 1px solid #0077a3;
+  border-radius: 6px;
+  margin: 4px 0;
+  padding: 6px 12px;
+  font-weight: bold;
+}
+
+
+.bathbomb-item {
+  background-color: #FFD6CC;
+  color: #7a2a18;
+  border: 1px solid #d95c46;
+  border-radius: 6px;
+  margin: 4px 0;
+  padding: 6px 12px;
+  font-weight: bold;
+}
+
+.slime-item:hover, .bathbomb-item:hover {
+  background-color: #0077a3;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+#listDialog {
+  width: 80%;
+  max-width: 800px;
+  height: auto;
+  max-height: 80%;
+  margin: auto;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+}
+
+#listDialog h3 {
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+#listTable {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#listTable th, 
+#listTable td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: center;
+}
+
+#listTable th {
+  background-color: #f2f2f2;
+  font-weight: 600;
+}
+
+#closeDialog {
+  margin-top: 15px;
+  padding: 8px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#closeDialog:hover {
+  background-color: #125a9c;
+}
+
+/* 背景を暗くする */
+#listDialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+#listDialog:not([open]) {
+  display: none;
+}
+
 
 /*#DBF8FF、#77AED9、#9BEBF1*/

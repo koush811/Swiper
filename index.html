@@ -15,6 +15,7 @@
         <div id="optionmenue" style="display: none;">
             <div style="display:flex;gap:6px;margin-top:6px;">
                 <button id="resetbtn">待ち人数をリセット</button>
+                <button onclick="showList()">番号一覧を表示</button>
                 <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">閉じる</button>
             </div>  
         </div>
@@ -32,24 +33,14 @@
             </div>
         </div>
         <div class="swiper-slide">
-            <div class="slide-content-left">
+            <div class="slide-content">
                 <h1 class="title">スライム作り</h1>
-                <div class="human">待ち人数：<p id="output1"></p></div>
-                <div class="time">所要時間：○○分</div>
-            </div>
-            <div class="slide-content-right">
-                <h2>完成例</h2>
                 <img src="imgs/WIN_20251009_16_05_45_Pro.jpg" alt="" />
             </div>
         </div>
         <div class="swiper-slide">
-            <div class="slide-content-left">
+            <div class="slide-content">
                 <h1 class="title">バスボム作り</h1>
-                <div class="human">待ち人数：<p id="output2"></p></div>
-                <div class="time">所要時間：○○分</div>
-            </div>
-            <div class="slide-content-right">
-                <h2>完成例</h2>
                 <img src="imgs/WIN_20251008_16_31_19_Pro.jpg" alt="" />
             </div>
         </div>
@@ -60,18 +51,40 @@
 </div>
 <div id="waitingPanel">
     <div id="waitingCount">0人待ち</div>
-    <ul id="waitingList"></ul>
+
+    <div id="waitingListsContainer" style="display: flex; gap: 20px;">
+    <div id="slimeListContainer" style="flex: 1;">
+        <h4>スライム待ち</h4>
+        <ul id="slimeWaitingList" class="waitingList"></ul>
+    </div>
+    <div id="bathbombListContainer" style="flex: 1;">
+        <h4>バスボム待ち</h4>
+        <ul id="bathbombWaitingList" class="waitingList"></ul>
+    </div>
 </div>
+    </div>
 <div class="select">
-    <div>スライムかバスボムかどちらかを選んでください</div>
+    <div class="count">
+    <div class="human">スライムの待ち人数<p id="output1"></p></div>
+    <div class="human">バスボムの待ち人数<p id="output2"></p></div>
+    
+    </div>
+    <div>どちらかを選んでください</div>
     <div class="btn">
-        
         <button id="select_s">スライム</button>
         <button id="select_b">バスボム</button>
     </div>
 </div>
-
-
+<dialog id="listDialog">
+  <h3>番号一覧</h3>
+  <table id="listTable" border="1">
+    <thead>
+      <tr><th>種類</th><th>番号</th><th>発行時刻</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button id="closeDialog">閉じる</button>
+</dialog>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>

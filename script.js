@@ -114,38 +114,57 @@ function addItem(type){
 
 function removeItem(index){
   if(index < 0 || index >= waitingState.items.length) return;
-  waitingState.items.splice(index,1);
+  waitingState.items[index].deleted = true;
   saveState();
   renderWaiting();
 }
 
 function renderWaiting(){
-  const list = document.getElementById('waitingList');
+  const slimeList = document.getElementById('slimeWaitingList');
+  const bathbombList = document.getElementById('bathbombWaitingList');
   const countEl = document.getElementById('waitingCount');
   const out1 = document.getElementById('output1');
   const out2 = document.getElementById('output2');
-  const n1 = document.getElementById('number1');
-  const n2 = document.getElementById('number2');
-  if(!list || !countEl) return;
-  list.innerHTML = '';
-  const limit = waitingState.items.slice(0,3);
-  limit.forEach((it, i) =>{
+  if(!slimeList || !bathbombList || !countEl) return;
+
+  slimeList.innerHTML = '';
+  bathbombList.innerHTML = '';
+
+  const visibleItems = waitingState.items.filter(it => !it.deleted);
+
+  const slimeItems = visibleItems.filter(it => it.type === 'slime').slice(0, 3);
+  const bathItems = visibleItems.filter(it => it.type === 'bathbomb').slice(0, 3);
+
+  slimeItems.forEach(it => {
     const li = document.createElement('li');
-    const label = it.type === 'slime' ? 'スライム' : 'バスボム';
-    li.textContent = `${label}の${it.num}番`;
+    li.textContent = `スライム${it.num}番`;
+    li.classList.add('slime-item');
     li.style.cursor = 'pointer';
     li.title = 'クリックで削除';
-    li.onclick = () => { if(confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(i); };
-    list.appendChild(li);
+    li.onclick = () => {
+      if(confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(waitingState.items.indexOf(it));
+    };
+    slimeList.appendChild(li);
   });
-  const total = waitingState.items.length;
+
+  bathItems.forEach(it => {
+    const li = document.createElement('li');
+    li.textContent = `バスボム${it.num}番`;
+    li.classList.add('bathbomb-item');
+    li.style.cursor = 'pointer';
+    li.title = 'クリックで削除';
+    li.onclick = () => {
+      if(confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(waitingState.items.indexOf(it));
+    };
+    bathbombList.appendChild(li);
+  });
+
+  const total = visibleItems.length;
   countEl.textContent = `${total}人待ち`;
-  const slimeCount = waitingState.items.filter(it=>it.type==='slime').length;
-  const bathCount = waitingState.items.filter(it=>it.type==='bathbomb').length;
-  if(out1) out1.textContent = slimeCount + '人';
-  if(out2) out2.textContent = bathCount + '人';
-  if(n1) n1.value = slimeCount;
-  if(n2) n2.value = bathCount;
+
+  if(out1) out1.textContent = slimeItems.length + '人';
+  if(out2) out2.textContent = bathItems.length + '人';
+
   showNumber1();
   showNumber2();
 }
@@ -184,3 +203,24 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 updateclock();
 setInterval(updateclock, 1000);
+
+function showList() {
+  const dialog = document.getElementById('listDialog');
+  const tbody = document.querySelector('#listTable tbody');
+  tbody.innerHTML = '';
+
+  waitingState.items.forEach(it => {
+    const row = document.createElement('tr');
+    const typeLabel = it.type === 'slime' ? 'スライム' : 'バスボム';
+    const ts = new Date(it.ts).toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const status = it.deleted ? '(削除済)' : '';
+    row.innerHTML = `<td>${typeLabel}</td><td>${it.num}番 ${status}</td><td>${ts}</td>`;
+    tbody.appendChild(row);
+  });
+
+  dialog.showModal();
+}
+
+document.getElementById('closeDialog').addEventListener('click', () => {
+  document.getElementById('listDialog').close();
+});
