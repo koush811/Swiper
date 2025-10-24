@@ -1,90 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
-        <button  onclick="options()" id="option">option</button>
+        <button onclick="options()" id="option">option</button>
 
         <div id="optionmenue" style="display: none;">
             <div style="display:flex;gap:6px;margin-top:6px;">
                 <button id="resetbtn">待ち人数をリセット</button>
                 <button onclick="showList()">番号一覧を表示</button>
-                <button onclick="optionend(),showNumber1(),showNumber2()"  id="optionend">閉じる</button>
-            </div>  
+                <button onclick="optionend(),showNumber1(),showNumber2()" id="optionend">閉じる</button>
+            </div>
         </div>
         <div id="clock"></div>
     </header>
     <!-- Slider main container -->
     <div class="swiper">
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper">
-        <!-- Slides -->
-        <div class="swiper-slide">
-            <div class="main-slide">
-                <h1 class="maintitle">１年１組<br>Chemical Lab</h1>
-                <div class="mainsetumei">スライムとバスボム作りをやっています<br>受け付けはこちらから</div>
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+                <div class="main-slide">
+                    <h1 class="maintitle">１年１組<br>Chemical Lab</h1>
+                    <div class="mainsetumei">スライムとバスボム作りをやっています<br>受け付けはこちらから</div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slide-content">
+                    <h1 class="title">スライム作り</h1>
+                    <img src="imgs/WIN_20251009_16_05_45_Pro.jpg" alt="" />
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slide-content">
+                    <h1 class="title">バスボム作り</h1>
+                    <img src="imgs/WIN_20251008_16_31_19_Pro.jpg" alt="" />
+                </div>
             </div>
         </div>
-        <div class="swiper-slide">
-            <div class="slide-content">
-                <h1 class="title">スライム作り</h1>
-                <img src="imgs/WIN_20251009_16_05_45_Pro.jpg" alt="" />
-            </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="slide-content">
-                <h1 class="title">バスボム作り</h1>
-                <img src="imgs/WIN_20251008_16_31_19_Pro.jpg" alt="" />
-            </div>
-        </div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
-</div>
-<div id="waitingPanel">
-    <div id="waitingCount">0人待ち</div>
+    <div id="waitingPanel">
+        <div id="waitingCount">0人待ち</div>
 
-    <div id="waitingListsContainer" style="display: flex; gap: 20px;">
-    <div id="slimeListContainer" style="flex: 1;">
-        <h4>スライム待ち</h4>
-        <ul id="slimeWaitingList" class="waitingList"></ul>
+        <div id="waitingListsContainer" style="display: flex; gap: 20px;">
+            <div id="slimeListContainer" style="flex: 1;">
+                <h4>スライム待ち</h4>
+                <ul id="slimeWaitingList" class="waitingList"></ul>
+            </div>
+            <div id="bathbombListContainer" style="flex: 1;">
+                <h4>バスボム待ち</h4>
+                <ul id="bathbombWaitingList" class="waitingList"></ul>
+            </div>
+        </div>
     </div>
-    <div id="bathbombListContainer" style="flex: 1;">
-        <h4>バスボム待ち</h4>
-        <ul id="bathbombWaitingList" class="waitingList"></ul>
+    <div class="select">
+        <div class="count">
+            <div class="human">スライムの待ち人数<p id="output1"></p>
+            </div>
+            <div class="human">バスボムの待ち人数<p id="output2"></p>
+            </div>
+
+        </div>
+        <div>どちらかを選んでください</div>
+        <div class="btn">
+            <button id="select_s">スライム</button>
+            <button id="select_b">バスボム</button>
+        </div>
     </div>
-</div>
-    </div>
-<div class="select">
-    <div class="count">
-    <div class="human">スライムの待ち人数<p id="output1"></p></div>
-    <div class="human">バスボムの待ち人数<p id="output2"></p></div>
-    
-    </div>
-    <div>どちらかを選んでください</div>
-    <div class="btn">
-        <button id="select_s">スライム</button>
-        <button id="select_b">バスボム</button>
-    </div>
-</div>
-<dialog id="listDialog">
-  <h3>番号一覧</h3>
-  <table id="listTable" border="1">
-    <thead>
-      <tr><th>種類</th><th>番号</th><th>発行時刻</th></tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-  <button id="closeDialog">閉じる</button>
-</dialog>
+    <dialog id="listDialog">
+        <h3>番号一覧</h3>
+        <table id="listTable" border="1">
+            <thead>
+                <tr>
+                    <th>種類</th>
+                    <th>番号</th>
+                    <th>発行時刻</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="closeDialog">閉じる</button>
+    </dialog>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
