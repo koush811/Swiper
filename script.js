@@ -126,10 +126,18 @@ function addItem(type, groupCount = 1) {
 
 function removeItem(index) {
   if (index < 0 || index >= waitingState.items.length) return;
-  waitingState.items[index].deleted = true;
+
+  // 完全に配列から削除
+  waitingState.items.splice(index, 1);
+
+  // ローカルストレージに保存
   saveState();
+
+  // 表示更新
   renderWaiting();
+  showList();
 }
+
 
 /*function renderWaiting() {
   const slimeListContainer = document.getElementById('slimeListContainer');
@@ -285,60 +293,69 @@ function renderWaiting() {
   const bathGroups = groupItemsByGroupId(bathItems);
 
   slimeListContainer.innerHTML = '';
-  slimeGroups.forEach((group, index) => {
-    const groupWrapper = document.createElement('div');
-    groupWrapper.classList.add('group-wrapper');
+  // ===== スライムリスト描画 =====
+slimeGroups.forEach((group, index) => {
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('group-wrapper');
 
-    const title = document.createElement('h5');
+  const title = document.createElement('h5');
+  if (group.length === 1) {
+    title.textContent = `スライム 1人だけ`;
+  } else {
     title.textContent = `スライム グループ${index + 1}（${group.length}人）`;
-    groupWrapper.appendChild(title);
+  }
+  wrapper.appendChild(title);
 
-    const ul = document.createElement('ul');
-    ul.classList.add('group-list');
-    group.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `スライム${item.num}番`;
-      li.classList.add('slime-item');
-      li.style.cursor = 'pointer';
-      li.title = 'クリックで削除';
-      li.onclick = () => {
-        if (confirm(`${li.textContent} をリストから削除しますか？`)) {
-          removeItem(waitingState.items.indexOf(item));
-        }
-      };
-      ul.appendChild(li);
-    });
-    groupWrapper.appendChild(ul);
-    slimeListContainer.appendChild(groupWrapper);
+  const ul = document.createElement('ul');
+  ul.classList.add('group-list');
+
+  group.forEach(it => {
+    const li = document.createElement('li');
+    li.textContent = `スライム${it.num}番`;
+    li.style.cursor = 'pointer';
+    li.title = 'クリックで削除';
+    li.onclick = () => {
+      if (confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(waitingState.items.indexOf(it));
+    };
+    ul.appendChild(li);
   });
+
+  wrapper.appendChild(ul);
+  slimeListContainer.appendChild(wrapper);
+});
+
 
   bathbombListContainer.innerHTML = '';
   bathGroups.forEach((group, index) => {
-    const groupWrapper = document.createElement('div');
-    groupWrapper.classList.add('group-wrapper');
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('group-wrapper');
 
-    const title = document.createElement('h5');
+  const title = document.createElement('h5');
+  if (group.length === 1) {
+    title.textContent = `バスボム 1人だけ`;
+  } else {
     title.textContent = `バスボム グループ${index + 1}（${group.length}人）`;
-    groupWrapper.appendChild(title);
+  }
+  wrapper.appendChild(title);
 
-    const ul = document.createElement('ul');
-    ul.classList.add('group-list');
-    group.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `バスボム${item.num}番`;
-      li.classList.add('bathbomb-item');
-      li.style.cursor = 'pointer';
-      li.title = 'クリックで削除';
-      li.onclick = () => {
-        if (confirm(`${li.textContent} をリストから削除しますか？`)) {
-          removeItem(waitingState.items.indexOf(item));
-        }
-      };
-      ul.appendChild(li);
-    });
-    groupWrapper.appendChild(ul);
-    bathbombListContainer.appendChild(groupWrapper);
+  const ul = document.createElement('ul');
+  ul.classList.add('group-list');
+
+  group.forEach(it => {
+    const li = document.createElement('li');
+    li.textContent = `バスボム${it.num}番`;
+    li.style.cursor = 'pointer';
+    li.title = 'クリックで削除';
+    li.onclick = () => {
+      if (confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(waitingState.items.indexOf(it));
+    };
+    ul.appendChild(li);
   });
+
+  wrapper.appendChild(ul);
+  bathbombListContainer.appendChild(wrapper);
+});
+
 
   // 待ち合計人数
   const total = visibleItems.length;
@@ -362,20 +379,6 @@ function renderWaiting() {
 
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const btnS = document.getElementById('select_s');
-  const btnB = document.getElementById('select_b');
-  if (btnS) btnS.addEventListener('click', () => {
-    const val = Math.max(1, Number(document.getElementById('number1').value) || 1);
-    addItem('slime', val);
-  });
-  if (btnB) btnB.addEventListener('click', () => {
-    const val = Math.max(1, Number(document.getElementById('number2').value) || 1);
-    addItem('bathbomb', val);
-  });
-  loadState();
-});
-
 
 function updateclock() {
   const now = new Date();
@@ -398,7 +401,6 @@ document.getElementById('resetbtn').addEventListener('click', reset);
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 既存のボタンイベント
   const btnS = document.getElementById('select_s');
   const btnB = document.getElementById('select_b');
   if (btnS) btnS.addEventListener('click', () => {
@@ -410,7 +412,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addItem('bathbomb', val);
   });
 
-  // ✅ リセットボタン追加
   const resetBtn = document.getElementById('resetBtn');
   if (resetBtn) resetBtn.addEventListener('click', reset);
 
