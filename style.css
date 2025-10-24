@@ -241,9 +241,10 @@ body {
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto; 
   box-shadow: 2px 0 12px rgba(0,0,0,0.12);
 }
+
 
 .rightPanel {
   position: fixed;

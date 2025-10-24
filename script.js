@@ -387,17 +387,38 @@ function reset() {
   if (!confirm('待ち人数をすべてリセットしますか？')) return;
 
   waitingState = { items: [], counters: { slime: 0, bathbomb: 0 } };
-
   localStorage.removeItem(STATE_KEY);
+
   renderWaiting();
+  showList();     
 
   alert('待ち人数をリセットしました。');
 }
+document.getElementById('resetbtn').addEventListener('click', reset);
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  const btnReset = document.getElementById('resetbtn');
-  if (btnReset) btnReset.addEventListener('click', reset);
+  // 既存のボタンイベント
+  const btnS = document.getElementById('select_s');
+  const btnB = document.getElementById('select_b');
+  if (btnS) btnS.addEventListener('click', () => {
+    const val = Math.max(1, Number(document.getElementById('number1').value) || 1);
+    addItem('slime', val);
+  });
+  if (btnB) btnB.addEventListener('click', () => {
+    const val = Math.max(1, Number(document.getElementById('number2').value) || 1);
+    addItem('bathbomb', val);
+  });
+
+  // ✅ リセットボタン追加
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) resetBtn.addEventListener('click', reset);
+
+  loadState();
+  showList();
 });
+
+
 
 
 updateclock();
@@ -409,8 +430,9 @@ function showList() {
   if (!tbody) return;
   tbody.innerHTML = '';
 
-  // 削除済み除くアイテム取得
-  const itemsToShow = waitingState.items.filter(it => !it.deleted);
+  // 削除済みでないアイテムを取得
+  const itemsToShow = waitingState.items;
+  
 
   if (itemsToShow.length === 0) {
     const row = document.createElement('tr');
@@ -423,18 +445,57 @@ function showList() {
   } else {
     itemsToShow.forEach(it => {
       const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${it.type === 'slime' ? 'スライム' : 'バスボム'}</td>
-        <td>${it.num}番</td>
-        <td>${new Date(it.ts).toLocaleTimeString('ja-JP')}</td>
-        <td><button onclick="removeItem(${waitingState.items.indexOf(it)})">削除</button></td>
-      `;
+
+      const tdType = document.createElement('td');
+      tdType.textContent = it.type === 'slime' ? 'スライム' : 'バスボム';
+
+      const tdNum = document.createElement('td');
+      tdNum.textContent = `${it.num}番`;
+
+      const tdTime = document.createElement('td');
+      tdTime.textContent = new Date(it.ts).toLocaleTimeString('ja-JP');
+
+      const tdDel = document.createElement('td');
+      const btn = document.createElement('button');
+      btn.textContent = '削除';
+      btn.addEventListener('click', () => {
+        if (confirm(`${it.type === 'slime' ? 'スライム' : 'バスボム'}${it.num}番を削除しますか？`)) {
+          // waitingState内のインデックスを検索
+          const idx = waitingState.items.findIndex(item => item.ts === it.ts);
+
+          if (idx !== -1) {
+            removeItem(idx); // ← waitingState / waitingPanel / localStorage を更新
+          }
+
+          // listDialog上の行も削除
+          row.remove();
+
+          // 行がなくなったらメッセージを表示
+          if (tbody.querySelectorAll('tr').length === 0) {
+            const msgRow = document.createElement('tr');
+            const msgTd = document.createElement('td');
+            msgTd.colSpan = 4;
+            msgTd.textContent = '現在、待機中の番号はありません。';
+            msgTd.style.textAlign = 'center';
+            msgRow.appendChild(msgTd);
+            tbody.appendChild(msgRow);
+          }
+        }
+      });
+      tdDel.appendChild(btn);
+
+      row.appendChild(tdType);
+      row.appendChild(tdNum);
+      row.appendChild(tdTime);
+      row.appendChild(tdDel);
+
       tbody.appendChild(row);
     });
   }
 
   if (!dialog.hasAttribute('open')) dialog.showModal();
 }
+
 
 function showListDelete(){
   document.getElementById('delete').addEventListener('click')
