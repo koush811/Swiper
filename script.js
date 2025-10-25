@@ -137,6 +137,29 @@ function removeItem(index) {
   renderWaiting();
   showList();
 }
+function removeItemFromPanel(item) {
+  // 完全削除せずに、deletedフラグを立てる
+  item.deleted = true;
+
+  // UI 更新のみ
+  renderWaiting();
+}
+
+
+function removeItemFromListDialog(index) {
+  if (index < 0 || index >= waitingState.items.length) return;
+
+  // 配列から完全削除
+  waitingState.items.splice(index, 1);
+
+  // ローカルストレージに反映
+  saveState();
+
+  // UI更新
+  renderWaiting();
+  showList();
+}
+
 
 
 /*function renderWaiting() {
@@ -294,67 +317,76 @@ function renderWaiting() {
 
   slimeListContainer.innerHTML = '';
   // ===== スライムリスト描画 =====
-slimeGroups.forEach((group, index) => {
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('group-wrapper');
+  slimeGroups.forEach((group, index) => {
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('group-wrapper');
 
-  const title = document.createElement('h5');
-  if (group.length === 1) {
-    title.textContent = `スライム 1人だけ`;
-  } else {
-    title.textContent = `スライム グループ${index + 1}（${group.length}人）`;
+    const title = document.createElement('h5');
+    if (group.length === 1) {
+      title.textContent = `スライム 1人だけ`;
+    } else {
+      title.textContent = `スライム グループ${index + 1}（${group.length}人）`;
+    }
+    wrapper.appendChild(title);
+
+    const ul = document.createElement('ul');
+    ul.classList.add('group-list');
+
+    group.forEach(it => {
+      const li = document.createElement('li');
+      li.textContent = `スライム${it.num}番`;
+      li.style.cursor = 'pointer';
+      li.title = 'クリックで削除';
+      li.onclick = () => {
+  if (confirm(`${li.textContent} をリストから非表示にしますか？`)) {
+    removeItemFromPanel(it); // waitingState には残す
   }
-  wrapper.appendChild(title);
+};
 
-  const ul = document.createElement('ul');
-  ul.classList.add('group-list');
 
-  group.forEach(it => {
-    const li = document.createElement('li');
-    li.textContent = `スライム${it.num}番`;
-    li.style.cursor = 'pointer';
-    li.title = 'クリックで削除';
-    li.onclick = () => {
-      if (confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(waitingState.items.indexOf(it));
-    };
-    ul.appendChild(li);
+      ul.appendChild(li);
+    });
+
+    wrapper.appendChild(ul);
+    slimeListContainer.appendChild(wrapper);
   });
-
-  wrapper.appendChild(ul);
-  slimeListContainer.appendChild(wrapper);
-});
 
 
   bathbombListContainer.innerHTML = '';
   bathGroups.forEach((group, index) => {
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('group-wrapper');
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('group-wrapper');
 
-  const title = document.createElement('h5');
-  if (group.length === 1) {
-    title.textContent = `バスボム 1人だけ`;
-  } else {
-    title.textContent = `バスボム グループ${index + 1}（${group.length}人）`;
+    const title = document.createElement('h5');
+    if (group.length === 1) {
+      title.textContent = `バスボム 1人だけ`;
+    } else {
+      title.textContent = `バスボム グループ${index + 1}（${group.length}人）`;
+    }
+    wrapper.appendChild(title);
+
+    const ul = document.createElement('ul');
+    ul.classList.add('group-list');
+
+    group.forEach(it => {
+      const li = document.createElement('li');
+      li.textContent = `バスボム${it.num}番`;
+      li.style.cursor = 'pointer';
+      li.title = 'クリックで削除';
+      li.onclick = () => {
+  if (confirm(`${li.textContent} をリストから非表示にしますか？`)) {
+    removeItemFromPanel(it); // waitingState には残す
   }
-  wrapper.appendChild(title);
+};
 
-  const ul = document.createElement('ul');
-  ul.classList.add('group-list');
 
-  group.forEach(it => {
-    const li = document.createElement('li');
-    li.textContent = `バスボム${it.num}番`;
-    li.style.cursor = 'pointer';
-    li.title = 'クリックで削除';
-    li.onclick = () => {
-      if (confirm(`${li.textContent} をリストから削除しますか？`)) removeItem(waitingState.items.indexOf(it));
-    };
-    ul.appendChild(li);
+
+      ul.appendChild(li);
+    });
+
+    wrapper.appendChild(ul);
+    bathbombListContainer.appendChild(wrapper);
   });
-
-  wrapper.appendChild(ul);
-  bathbombListContainer.appendChild(wrapper);
-});
 
 
   // 待ち合計人数
@@ -393,7 +425,7 @@ function reset() {
   localStorage.removeItem(STATE_KEY);
 
   renderWaiting();
-  showList();     
+  showList();
 
   alert('待ち人数をリセットしました。');
 }
@@ -432,8 +464,9 @@ function showList() {
   tbody.innerHTML = '';
 
   // 削除済みでないアイテムを取得
-  const itemsToShow = waitingState.items;
-  
+const itemsToShow = waitingState.items; // deleted フラグ無視して全部表示
+
+
 
   if (itemsToShow.length === 0) {
     const row = document.createElement('tr');
@@ -498,9 +531,9 @@ function showList() {
 }
 
 
-function showListDelete(){
+function showListDelete() {
   document.getElementById('delete').addEventListener('click')
-    
+
 }
 
 document.getElementById('closeDialog').addEventListener('click', () => {
